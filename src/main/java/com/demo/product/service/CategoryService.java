@@ -5,7 +5,8 @@ import com.demo.product.dto.CategoryDto;
 import java.util.List;
 
 public interface CategoryService {
-    void add(CategoryDto categorydto);
 
-    List<CategoryDto> get();
+    void createCategory(CategoryDto categorydto);
+
+    List<CategoryDto> getAllCategories();
 }

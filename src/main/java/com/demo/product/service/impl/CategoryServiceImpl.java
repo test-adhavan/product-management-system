@@ -20,21 +20,21 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    public void add(CategoryDto categorydto) {
+    public void createCategory(CategoryDto categorydto) {
 
-        Category category = CategoryMapper.tocategory(categorydto);
+        Category category = CategoryMapper.toCategory(categorydto);
 
         repository.save(category);
 
     }
 
     @Override
-    public List<CategoryDto> get() {
+    public List<CategoryDto> getAllCategories() {
 
         List<Category> category = repository.findAll();
 
         List<CategoryDto> dto =  category.stream()
-               .map(CategoryMapper::tocategorydto)
+               .map(CategoryMapper::toCategoryDto)
                .collect(Collectors.toList());
        return dto ;
     }

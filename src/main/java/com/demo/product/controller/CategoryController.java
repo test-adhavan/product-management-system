@@ -21,15 +21,15 @@ public class CategoryController {
 
 
         @PostMapping
-        public ResponseEntity<String> Createcategory(@Valid @RequestBody CategoryDto categorydto){
+        public ResponseEntity<String> CreateCategory(@Valid @RequestBody CategoryDto categorydto){
 
-             service.add(categorydto);
+             service.createCategory(categorydto);
              return  ResponseEntity.status(HttpStatus.CREATED).body("Category Added");
          }
 
          @GetMapping
-         public ResponseEntity<List<CategoryDto>> getcategory(){
-            List<CategoryDto> dto = service.get();
+         public ResponseEntity<List<CategoryDto>> getAllCategories(){
+            List<CategoryDto> dto = service.getAllCategories();
             return ResponseEntity.ok(dto);
          }
 
