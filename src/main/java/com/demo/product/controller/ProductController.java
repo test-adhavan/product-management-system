@@ -29,8 +29,10 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductDto>> getall(){
-        List<ProductDto> dto = service.get();
+    public ResponseEntity<Page<ProductDto>> getall(@RequestParam(defaultValue = "0") int page,
+                                                   @RequestParam(defaultValue = "3") int size){
+
+        Page<ProductDto> dto = service.get(page,size);
         return ResponseEntity.ok(dto);
     }
 
