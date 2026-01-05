@@ -2,6 +2,7 @@ package com.demo.product.controller;
 
 import com.demo.product.dto.ProductDto;
 import com.demo.product.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +22,7 @@ public class ProductController {
     private ProductService service;
 
     @PostMapping
-    public ResponseEntity<ProductDto> add(@RequestBody ProductDto productdto){
+    public ResponseEntity<ProductDto> add(@Valid @RequestBody ProductDto productdto){
 
         ProductDto dto = service.add(productdto);
         return ResponseEntity.status(HttpStatus.CREATED)
