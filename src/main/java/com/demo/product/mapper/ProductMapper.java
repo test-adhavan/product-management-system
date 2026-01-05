@@ -19,7 +19,9 @@ public class ProductMapper {
         return product;
     }
     public static ProductDto toproductdto(Product product){
+
         ProductDto productdto = new ProductDto();
+        productdto.setId(product.getId());
         productdto.setName(product.getName());
         productdto.setDescription(product.getDescription());
         productdto.setPrice(product.getPrice());
