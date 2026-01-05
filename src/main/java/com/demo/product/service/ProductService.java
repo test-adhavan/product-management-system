@@ -9,4 +9,8 @@ public interface ProductService {
     ProductDto add(ProductDto productdto);
 
     List<ProductDto> get();
+
+    void delect(Long id);
+
+    ProductDto update(Long id, ProductDto productdto);
 }

@@ -43,4 +43,34 @@ public class ProductServiceImpl implements ProductService {
         return dto;
 
     }
+
+    @Override
+    public void delect(Long id) {
+      Product product =  productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+       productRepository.delete(product);
+    }
+
+    @Override
+    public ProductDto update(Long id, ProductDto dto) {
+        Product product = productRepository.findById(id).orElseThrow(()-> new EntityNotFoundException());
+
+        if(dto.getCategoryId()!=null) {
+            Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new EntityNotFoundException());
+            product.setCategory(category);
+        }
+
+        if(dto.getName()!=null  && !dto.getName().isBlank()) product.setName(dto.getName());
+        if(dto.getDescription()!=null && !dto.getDescription().isBlank()) product.setDescription(dto.getDescription());
+        if(dto.getActive()!=null) product.setActive(dto.getActive());
+        if(dto.getStock()!=null) product.setStock(dto.getStock());
+        if(dto.getPrice()!=null) product.setPrice(dto.getPrice());
+
+
+        Product updatedproduct = productRepository.save(product);
+
+           return ProductMapper.toproductdto(updatedproduct);
+
+    }
+
+
 }

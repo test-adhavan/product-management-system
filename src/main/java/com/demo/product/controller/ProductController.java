@@ -30,4 +30,23 @@ public class ProductController {
         List<ProductDto> dto = service.get();
         return ResponseEntity.ok(dto);
     }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id){
+        service.delect(id);
+       return "Product delected Sucessfully ";
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDto> update(@PathVariable Long id , @RequestBody ProductDto productdto){
+      ProductDto dto =   service.update(id,productdto);
+        return ResponseEntity.ok(dto);
+    }
+
+
+
+
+
+
+
 }
