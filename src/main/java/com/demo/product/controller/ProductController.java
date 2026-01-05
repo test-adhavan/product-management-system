@@ -3,6 +3,7 @@ package com.demo.product.controller;
 import com.demo.product.dto.ProductDto;
 import com.demo.product.service.ProductService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,10 +17,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/product")
+@RequiredArgsConstructor
 public class ProductController {
 
-    @Autowired
-    private ProductService service;
+
+    private final ProductService service;
 
     @PostMapping
     public ResponseEntity<ProductDto> add(@Valid @RequestBody ProductDto productdto){

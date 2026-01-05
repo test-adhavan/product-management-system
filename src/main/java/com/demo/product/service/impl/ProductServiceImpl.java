@@ -10,6 +10,7 @@ import com.demo.product.repository.CategoryRepository;
 import com.demo.product.repository.ProductRepository;
 import com.demo.product.service.ProductService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,16 +21,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    @Autowired
+
     private ProductRepository productRepository;
-    @Autowired
+
     private CategoryRepository categoryRepository;
 
     @Override
     public ProductDto add(ProductDto productdto) {
 
-        Category category = categoryRepository.findById(productdto.getCategoryId()).orElseThrow(() -> new CategoryNotFound("Category doesnt exixts"));
+        Category category = categoryRepository.findById(productdto.getCategoryId()).orElseThrow(() ->
+                new CategoryNotFound("Category doesnt exixts"));
 
         Product product =  ProductMapper.toproduct(productdto,category);
 

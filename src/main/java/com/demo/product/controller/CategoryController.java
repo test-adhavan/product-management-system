@@ -3,6 +3,7 @@ package com.demo.product.controller;
 import com.demo.product.dto.CategoryDto;
 import com.demo.product.service.CategoryService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +13,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/category")
+@RequiredArgsConstructor
 public class CategoryController {
 
-       @Autowired
-       private CategoryService service;
+
+       private final CategoryService service;
 
 
         @PostMapping
