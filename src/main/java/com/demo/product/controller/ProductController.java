@@ -3,6 +3,9 @@ package com.demo.product.controller;
 import com.demo.product.dto.ProductDto;
 import com.demo.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +46,19 @@ public class ProductController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<ProductDto> getbyid(@PathVariable Long id){
+       ProductDto dto =  service.getbyid(id);
+       return ResponseEntity.ok(dto);
+
+    }
 
 
-
+    @GetMapping("/category/{id}")
+    public ResponseEntity<List<ProductDto>> getbycategory(@PathVariable Long id){
+       List<ProductDto> dto =  service.getbycategory(id);
+       return ResponseEntity.ok(dto);
+    }
 
 
 
