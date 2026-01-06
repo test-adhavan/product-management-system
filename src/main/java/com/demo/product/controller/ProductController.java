@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductDto>> getAllProtects(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<Page<ProductDto>> getAllProducts(@RequestParam(defaultValue = "0") int page,
                                                    @RequestParam(defaultValue = "3") int size){
 
         Page<ProductDto> dto = service.getAllProducts(page,size);
@@ -39,7 +39,7 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public String deleteProduct(@PathVariable Long id){
         service.deleteProduct(id);
-       return "Product delected Sucessfully ";
+       return "Product deleted sucessfully ";
     }
 
     @PutMapping("/{id}")

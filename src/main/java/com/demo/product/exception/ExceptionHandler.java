@@ -3,31 +3,30 @@ package com.demo.product.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
-public class ExecptionHandler {
+public class ExceptionHandler {
 
-    @ExceptionHandler(ProductNotFound.class)
-    public ResponseEntity<String> product(ProductNotFound e){
+    @org.springframework.web.bind.annotation.ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<String> product(ProductNotFoundException e){
 
       String mes  =  e.getMessage();
      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mes);
     }
 
-    @ExceptionHandler(CategoryNotFound.class)
-    public ResponseEntity<String> Category(CategoryNotFound e){
+    @org.springframework.web.bind.annotation.ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<String> Category(CategoryNotFoundException e){
 
         String mes  =  e.getMessage();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mes);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String,String> vaild(MethodArgumentNotValidException e){
+    @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String,String> valid(MethodArgumentNotValidException e){
 
         Map<String,String> error = new HashMap<>();
         e.getBindingResult().getFieldErrors().forEach(errors ->

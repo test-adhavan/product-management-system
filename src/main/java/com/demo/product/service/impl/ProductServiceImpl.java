@@ -3,8 +3,8 @@ package com.demo.product.service.impl;
 import com.demo.product.dto.ProductDto;
 import com.demo.product.entity.Category;
 import com.demo.product.entity.Product;
-import com.demo.product.exception.CategoryNotFound;
-import com.demo.product.exception.ProductNotFound;
+import com.demo.product.exception.CategoryNotFoundException;
+import com.demo.product.exception.ProductNotFoundException;
 import com.demo.product.mapper.ProductMapper;
 import com.demo.product.repository.CategoryRepository;
 import com.demo.product.repository.ProductRepository;
@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto createProduct(ProductDto productdto) {
 
         Category category = categoryRepository.findById(productdto.getCategoryId()).orElseThrow(() ->
-                new CategoryNotFound("Category doesnt exixts"));
+                new CategoryNotFoundException("Category not found"));
 
         Product product =  ProductMapper.toProduct(productdto,category);
 
@@ -52,23 +52,23 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDto> getProductsByCategory(Long id) {
 
-        categoryRepository.findById(id).orElseThrow(()-> new CategoryNotFound("Category Not Found"));
-        List<Product> product = productRepository.getByCategoryId(id);
+        categoryRepository.findById(id).orElseThrow(()-> new CategoryNotFoundException("Category not Found"));
+        List<Product> product = productRepository.findByCategoryId(id);
       return  product.stream().map(ProductMapper::toProductDto).collect(Collectors.toList());
     }
 
     @Override
     public void deleteProduct(Long id) {
-      Product product =  productRepository.findById(id).orElseThrow(() -> new ProductNotFound("Product Not Found"));
+      Product product =  productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not Found"));
        productRepository.delete(product);
     }
 
     @Override
     public ProductDto updateProduct(Long id, ProductDto dto) {
-        Product product = productRepository.findById(id).orElseThrow(()-> new ProductNotFound("Product Not Found"));
+        Product product = productRepository.findById(id).orElseThrow(()-> new ProductNotFoundException("Product not Found"));
 
         if(dto.getCategoryId()!=null) {
-            Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new CategoryNotFound("Category Not Found"));
+            Category category = categoryRepository.findById(dto.getCategoryId()).orElseThrow(() -> new CategoryNotFoundException("Category Not Found"));
             product.setCategory(category);
         }
 
@@ -87,7 +87,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto getProductById(Long id) {
-        Product product = productRepository.findById(id).orElseThrow(()-> new ProductNotFound("Product Not found"));
+        Product product = productRepository.findById(id).orElseThrow(()-> new ProductNotFoundException("Product Not found"));
         return ProductMapper.toProductDto(product);
     }
 
